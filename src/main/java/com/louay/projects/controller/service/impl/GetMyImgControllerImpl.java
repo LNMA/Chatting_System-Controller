@@ -1,5 +1,6 @@
 package com.louay.projects.controller.service.impl;
 
+import com.louay.projects.controller.service.GetMyImgController;
 import com.louay.projects.model.chains.communications.AccountPicture;
 import com.louay.projects.model.chains.users.Users;
 import com.louay.projects.model.dao.SelectUsersDAO;
@@ -18,12 +19,13 @@ import java.util.Set;
 @Component("getMyImg")
 @ComponentScan(basePackages = { "com.louay.projects.model"})
 @Scope("prototype")
-public class GetMyImgControllerImpl {
+public class GetMyImgControllerImpl implements GetMyImgController {
 
     @Autowired
     @Qualifier("usersDAO")
     private SelectUsersDAO selectUsersDAO;
 
+    @Override
     public Set<AccountPicture> getUserPhoto(AccountPicture accountPicture){
         Set <AccountPicture> container = (Set<AccountPicture>) selectUsersDAO.findPictureByUsername(accountPicture);
         return container;

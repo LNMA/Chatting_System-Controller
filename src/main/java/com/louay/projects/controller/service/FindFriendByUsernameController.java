@@ -1,11 +1,11 @@
 package com.louay.projects.controller.service;
 
-import com.louay.projects.model.chains.communications.AccountPicture;
 import com.louay.projects.model.chains.users.Users;
+import com.louay.projects.model.chains.util.PictureDirection;
 
-import java.util.Set;
+import java.util.List;
 
 public interface FindFriendByUsernameController {
 
-    Set<AccountPicture> execute(Users users);
+    List<PictureDirection> execute(Users users);
 }

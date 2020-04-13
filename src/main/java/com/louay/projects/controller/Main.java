@@ -1,9 +1,13 @@
 package com.louay.projects.controller;
 
+import com.louay.projects.controller.service.impl.FindFriendByUsernameControllerImpl;
 import com.louay.projects.controller.service.impl.SignUpClientControllerImpl;
+import com.louay.projects.model.chains.member.UserFriend;
 import com.louay.projects.model.chains.users.Client;
 import com.louay.projects.model.constants.UserGender;
 import com.louay.projects.model.constants.UserType;
+import com.louay.projects.model.dao.CirclesUsersDAO;
+import com.louay.projects.model.dao.InsertUserPostDAO;
 import com.louay.projects.model.util.date.NowDate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,7 +21,7 @@ public class Main {
 
         Client user = ac.getBean(Client.class);
         user.setUsername("louay");
-        user.setPassword("123");
+        user.setPassword("12345678");
         user.setAccountPermission(UserType.CLIENT.getType());
         user.setDateCreate(NowDate.getNowTimestamp());
 
@@ -32,7 +36,12 @@ public class Main {
         user.setState("az");
         user.setAddress("qatar street");
 
-        SignUpClientControllerImpl sign = (SignUpClientControllerImpl)ac.getBean("signUpContr");
-        sign.execute(user);
+        UserFriend friend = ac.getBean(UserFriend.class);
+        friend.setUsername("louay");
+        friend.setFriend("louay1");
+        friend.setFriendSince(NowDate.getNowTimestamp());
+
+        FindFriendByUsernameControllerImpl circlesUsersDAO = (FindFriendByUsernameControllerImpl) ac.getBean("findFriendByName");
+        circlesUsersDAO.execute(user);
     }
 }
