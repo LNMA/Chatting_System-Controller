@@ -41,7 +41,7 @@ public class Main {
         friend.setFriend("louay1");
         friend.setFriendSince(NowDate.getNowTimestamp());
 
-        FindFriendByUsernameControllerImpl circlesUsersDAO = (FindFriendByUsernameControllerImpl) ac.getBean("findFriendByName");
-        circlesUsersDAO.execute(user);
+        CirclesUsersDAO circlesUsersDAO = (CirclesUsersDAO) ac.getBean("usersDAO");
+        circlesUsersDAO.insertUserFriends(friend);
     }
 }

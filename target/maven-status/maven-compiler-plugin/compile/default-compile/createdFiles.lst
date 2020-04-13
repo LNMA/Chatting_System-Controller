@@ -5,5 +5,6 @@ com\louay\projects\controller\service\GetMyImgController.class
 com\louay\projects\controller\service\FindFriendByUsernameController.class
 com\louay\projects\controller\service\SignInController.class
 com\louay\projects\controller\service\impl\GetMyImgControllerImpl.class
+com\louay\projects\controller\util\GenerateImgName.class
 com\louay\projects\controller\service\impl\SignUpClientControllerImpl.class
 com\louay\projects\controller\service\SignUpClientController.class

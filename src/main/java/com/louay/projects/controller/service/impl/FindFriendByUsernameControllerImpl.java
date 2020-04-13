@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
@@ -42,7 +43,7 @@ public class FindFriendByUsernameControllerImpl implements FindFriendByUsernameC
     @Qualifier("fileOperation")
     private FileProcess fileProcess;
 
-    String path = "C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-Controller\\friendImag\\";//TODO Change to your path
+    String path = "C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-View\\src\\main\\webapp\\client\\friendImag\\";//TODO Change to your path
 
 
     @Override
@@ -84,6 +85,16 @@ public class FindFriendByUsernameControllerImpl implements FindFriendByUsernameC
             System.out.println(e);
         }
 
+    }
+
+    public boolean deleteImg(List<PictureDirection> directions){
+        File file;
+        boolean isDelete = false;
+        for (PictureDirection p :directions) {
+            file = new File(p.getPath()+""+p.getFileName());
+            isDelete = file.delete();
+        }
+        return isDelete;
     }
 
 

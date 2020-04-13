@@ -8,4 +8,6 @@ import java.util.List;
 public interface FindFriendByUsernameController {
 
     List<PictureDirection> execute(Users users);
+
+    boolean deleteImg(List<PictureDirection> directions);
 }
