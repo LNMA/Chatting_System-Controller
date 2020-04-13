@@ -69,8 +69,7 @@ public class SignUpClientControllerImpl implements SignUpClientController {
         byte[] bytes = null;
         try {
             //TODO change path to your path
-            bytes = this.fileProcess.readAPicture("C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\" +
-                    "Chatting_System-Controller\\myImg\\baseline_person_black_48dp.png");
+            bytes = this.fileProcess.readAPicture("C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\baseline_person_black_48dp.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,7 +85,7 @@ public class SignUpClientControllerImpl implements SignUpClientController {
         }
         this.accountPicture.setUsername(users.getUsername());
         this.accountPicture.setPicture(blob);
-        this.accountPicture.setPictureName("person-white-48dp.png");
+        this.accountPicture.setPictureName("baseline_person_black_48dp.png");
         this.accountPicture.setUploadDate(NowDate.getNowTimestamp());
         result = this.insertUserPostDAO.insertAccountPicture(this.accountPicture);
         return result;
