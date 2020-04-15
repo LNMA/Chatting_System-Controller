@@ -1,7 +1,6 @@
-package com.louay.projects.controller.service.impl;
+package com.louay.projects.controller.service.register.impl;
 
-import com.louay.projects.controller.service.FindFriendByUsernameController;
-import com.louay.projects.model.chains.communications.AccountPicture;
+import com.louay.projects.controller.service.register.SignInController;
 import com.louay.projects.model.chains.users.Users;
 import com.louay.projects.model.dao.SelectUsersDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +15,27 @@ import java.util.Set;
 
 @Controller
 @Configuration
-@Component("findFriendByName")
+@Component("isSignUp")
 @ComponentScan(basePackages = { "com.louay.projects.model"})
 @Scope("prototype")
-public class FindFriendByUsernameControllerImpl implements FindFriendByUsernameController {
+public class SignInControllerImpl implements SignInController {
 
     @Autowired
     @Qualifier("usersDAO")
     private SelectUsersDAO selectUsersDAO;
-
+    private Set<Users> container;
 
     @Override
-    public Set<AccountPicture> execute(Users users) {
-        if (users == null || users.getUsername() == null || "".equals(users.getUsername())){
-            throw new RuntimeException("Username must be exist to perform this operation.");
+    public boolean isSignUp(Users users){
+        if (users.getUsername() == null || users.getPassword() == null || users == null){
+            throw new RuntimeException("We need password and username to accomplished this operation.");
         }
-        Set<AccountPicture> container = (Set<AccountPicture>) selectUsersDAO.findFriendAndPictureByUsername(users);
-        return container;
+        this.container = (Set<Users>) selectUsersDAO.findUserByUsernameAndPassword(users);
+       return !this.container.isEmpty();
+    }
+
+    @Override
+    public Set<Users> getUsers(){
+        return this.container;
     }
 }
