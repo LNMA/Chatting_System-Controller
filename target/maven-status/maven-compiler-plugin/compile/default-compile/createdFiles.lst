@@ -9,6 +9,8 @@ com\louay\projects\controller\service\client\impl\GetUserTextPostControllerImpl.
 com\louay\projects\controller\util\GenerateImgName.class
 com\louay\projects\controller\Main.class
 com\louay\projects\controller\service\register\SignInController.class
+com\louay\projects\controller\service\client\AddUserImgPostController.class
 com\louay\projects\controller\service\client\GetUserTextPostController.class
 com\louay\projects\controller\service\register\impl\SignInControllerImpl.class
+com\louay\projects\controller\service\client\impl\AddUserImgPostControllerImpl.class
 com\louay\projects\controller\service\client\impl\GetMyImgControllerImpl.class
