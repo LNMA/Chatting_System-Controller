@@ -1,13 +1,10 @@
 package com.louay.projects.controller;
 
-import com.louay.projects.controller.service.impl.FindFriendByUsernameControllerImpl;
-import com.louay.projects.controller.service.impl.SignUpClientControllerImpl;
 import com.louay.projects.model.chains.member.UserFriend;
 import com.louay.projects.model.chains.users.Client;
 import com.louay.projects.model.constants.UserGender;
 import com.louay.projects.model.constants.UserType;
 import com.louay.projects.model.dao.CirclesUsersDAO;
-import com.louay.projects.model.dao.InsertUserPostDAO;
 import com.louay.projects.model.util.date.NowDate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;

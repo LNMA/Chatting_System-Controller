@@ -1,6 +1,6 @@
-package com.louay.projects.controller.service.impl;
+package com.louay.projects.controller.service.register.impl;
 
-import com.louay.projects.controller.service.SignUpClientController;
+import com.louay.projects.controller.service.register.SignUpClientController;
 import com.louay.projects.model.chains.communications.AccountPicture;
 import com.louay.projects.model.chains.users.Users;
 import com.louay.projects.model.dao.CreateUsersDAO;
@@ -65,7 +65,7 @@ public class SignUpClientControllerImpl implements SignUpClientController {
 
     @Override
     public int uploadDefaultImg(Users users){
-        int result;
+        int result = 0;
         byte[] bytes = null;
         try {
             //TODO change path to your path
@@ -73,23 +73,19 @@ public class SignUpClientControllerImpl implements SignUpClientController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(bytes.length);
-        for (int i = 0; i < bytes.length; i++) {
-            System.out.print(bytes[i]);
+        if (bytes != null) {
+            java.sql.Blob blob = this.pool.initBlob();
+            try {
+                blob.setBytes(1, bytes);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            this.accountPicture.setUsername(users.getUsername());
+            this.accountPicture.setPicture(blob);
+            this.accountPicture.setPictureName("baseline_person_black_48dp.png");
+            this.accountPicture.setUploadDate(NowDate.getNowTimestamp());
+            result = this.insertUserPostDAO.insertAccountPicture(this.accountPicture);
         }
-        java.sql.Blob blob = this.pool.initBlob();
-        try {
-            blob.setBytes(1, bytes);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        this.accountPicture.setUsername(users.getUsername());
-        this.accountPicture.setPicture(blob);
-        this.accountPicture.setPictureName("baseline_person_black_48dp.png");
-        this.accountPicture.setUploadDate(NowDate.getNowTimestamp());
-        result = this.insertUserPostDAO.insertAccountPicture(this.accountPicture);
         return result;
     }
-
-
 }

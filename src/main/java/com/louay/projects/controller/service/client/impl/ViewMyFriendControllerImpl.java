@@ -1,6 +1,6 @@
-package com.louay.projects.controller.service.impl;
+package com.louay.projects.controller.service.client.impl;
 
-import com.louay.projects.controller.service.FindFriendByUsernameController;
+import com.louay.projects.controller.service.client.ViewMyFriendController;
 import com.louay.projects.model.chains.communications.AccountPicture;
 import com.louay.projects.model.chains.users.Users;
 import com.louay.projects.model.chains.util.PictureBase64;
@@ -22,7 +22,7 @@ import java.util.*;
 @Component("findFriendByName")
 @ComponentScan(basePackages = {"com.louay.projects.model"})
 @Scope("prototype")
-public class FindFriendByUsernameControllerImpl implements FindFriendByUsernameController {
+public class ViewMyFriendControllerImpl implements ViewMyFriendController {
 
     @Autowired
     @Qualifier("usersDAO")
