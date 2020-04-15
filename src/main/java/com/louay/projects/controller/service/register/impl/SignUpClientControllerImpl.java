@@ -1,7 +1,7 @@
 package com.louay.projects.controller.service.register.impl;
 
 import com.louay.projects.controller.service.register.SignUpClientController;
-import com.louay.projects.model.chains.communications.AccountPicture;
+import com.louay.projects.model.chains.communications.account.AccountPicture;
 import com.louay.projects.model.chains.users.Users;
 import com.louay.projects.model.dao.CreateUsersDAO;
 import com.louay.projects.model.dao.InsertUserPostDAO;

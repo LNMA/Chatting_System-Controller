@@ -1,7 +1,7 @@
 package com.louay.projects.controller.service.client.impl;
 
 import com.louay.projects.controller.service.client.GetUserTextPostController;
-import com.louay.projects.model.chains.communications.AccountTextPost;
+import com.louay.projects.model.chains.communications.account.AccountTextPost;
 import com.louay.projects.model.dao.SelectUsersDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,7 +26,9 @@ public class GetUserTextPostControllerImpl implements GetUserTextPostController 
 
     @Override
     public LinkedHashSet<AccountTextPost> getUserTextPost(AccountTextPost accountTextPost){
-        LinkedHashSet<AccountTextPost> linkedHashSet = (LinkedHashSet<AccountTextPost>) selectUsersDAO.findUserTextPostByUsername(accountTextPost);
+        LinkedHashSet<AccountTextPost> linkedHashSet =
+                (LinkedHashSet<AccountTextPost>) this.selectUsersDAO.findUserTextPostByUsername(accountTextPost);
+
         if (linkedHashSet.size() < 1){
             accountTextPost.setPost("There is no post here.");
             linkedHashSet.add(accountTextPost);

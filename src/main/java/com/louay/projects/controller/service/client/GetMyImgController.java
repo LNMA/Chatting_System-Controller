@@ -1,6 +1,7 @@
 package com.louay.projects.controller.service.client;
 
-import com.louay.projects.model.chains.communications.AccountPicture;
+
+import com.louay.projects.model.chains.communications.account.AccountPicture;
 
 import java.util.Set;
 

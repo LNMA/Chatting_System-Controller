@@ -1,7 +1,7 @@
 package com.louay.projects.controller.service.client.impl;
 
 import com.louay.projects.controller.service.client.ViewMyFriendController;
-import com.louay.projects.model.chains.communications.AccountPicture;
+import com.louay.projects.model.chains.communications.account.AccountPicture;
 import com.louay.projects.model.chains.users.Users;
 import com.louay.projects.model.chains.util.PictureBase64;
 import com.louay.projects.model.dao.SelectUsersDAO;
