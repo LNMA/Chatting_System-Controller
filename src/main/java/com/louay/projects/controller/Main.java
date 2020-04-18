@@ -1,10 +1,10 @@
 package com.louay.projects.controller;
 
 
+import com.louay.projects.model.chains.accounts.Client;
+import com.louay.projects.model.chains.accounts.constant.UserGender;
+import com.louay.projects.model.chains.accounts.constant.UserType;
 import com.louay.projects.model.chains.member.account.UserFriend;
-import com.louay.projects.model.chains.users.Client;
-import com.louay.projects.model.constants.UserGender;
-import com.louay.projects.model.constants.UserType;
 import com.louay.projects.model.util.date.NowDate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -37,10 +37,5 @@ public class Main {
         friend.setUsername("louay");
         friend.setFriendMember("louay1");
         friend.setFriendMemberSince(NowDate.getNowTimestamp());
-
-
-
-
-
     }
 }

@@ -20,7 +20,7 @@ public class AddUserTextPostControllerImpl implements AddUserTextPostController 
 
     @Autowired
     @Qualifier("usersDAO")
-    InsertUserPostDAO insertUserPostDAO;
+    private InsertUserPostDAO insertUserPostDAO;
 
     @Override
     public Long insertUserPost(AccountTextPost accountTextPost){

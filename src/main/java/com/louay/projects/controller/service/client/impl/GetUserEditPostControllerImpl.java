@@ -2,9 +2,9 @@ package com.louay.projects.controller.service.client.impl;
 
 import com.louay.projects.controller.service.client.GetUserEditPostController;
 import com.louay.projects.model.chains.communications.Post;
-import com.louay.projects.model.chains.communications.PostClassName;
 import com.louay.projects.model.chains.communications.account.AccountImgPost;
 import com.louay.projects.model.chains.communications.account.AccountTextPost;
+import com.louay.projects.model.chains.communications.constant.PostClassName;
 import com.louay.projects.model.chains.communications.group.GroupImgPost;
 import com.louay.projects.model.chains.communications.group.GroupTextPost;
 import com.louay.projects.model.dao.SelectGroupDAO;
@@ -28,7 +28,7 @@ public class GetUserEditPostControllerImpl implements GetUserEditPostController 
 
     @Autowired
     @Qualifier("usersDAO")
-    SelectUsersDAO selectUsersDAO;
+    private SelectUsersDAO selectUsersDAO;
 
     @Autowired
     @Qualifier("groupDAO")

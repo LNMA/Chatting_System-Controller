@@ -1,12 +1,12 @@
 package com.louay.projects.controller.service.client.impl;
 
 import com.louay.projects.controller.service.client.GetUserCirclePostController;
+import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.account.AccountImgPost;
 import com.louay.projects.model.chains.communications.account.AccountTextPost;
 import com.louay.projects.model.chains.communications.group.GroupImgPost;
 import com.louay.projects.model.chains.communications.group.GroupTextPost;
-import com.louay.projects.model.chains.users.Users;
 import com.louay.projects.model.dao.SelectGroupDAO;
 import com.louay.projects.model.dao.SelectUsersDAO;
 import org.springframework.beans.factory.annotation.Autowired;

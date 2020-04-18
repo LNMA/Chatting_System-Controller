@@ -2,7 +2,7 @@ package com.louay.projects.controller.service.client.impl;
 
 import com.louay.projects.controller.service.client.DeleteUserPostController;
 import com.louay.projects.model.chains.communications.Post;
-import com.louay.projects.model.chains.communications.PostClassName;
+import com.louay.projects.model.chains.communications.constant.PostClassName;
 import com.louay.projects.model.dao.DeleteUserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

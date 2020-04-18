@@ -1,7 +1,7 @@
 package com.louay.projects.controller.service.client;
 
+import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;
-import com.louay.projects.model.chains.users.Users;
 
 import java.util.TreeSet;
 
