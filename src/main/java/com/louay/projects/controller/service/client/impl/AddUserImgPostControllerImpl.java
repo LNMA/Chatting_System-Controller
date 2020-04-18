@@ -1,7 +1,7 @@
 package com.louay.projects.controller.service.client.impl;
 
 import com.louay.projects.controller.service.client.AddUserImgPostController;
-import com.louay.projects.model.chains.communications.AccountImgPost;
+import com.louay.projects.model.chains.communications.account.AccountImgPost;
 import com.louay.projects.model.dao.InsertUserPostDAO;
 import com.louay.projects.model.util.date.NowDate;
 import com.louay.projects.model.util.pool.MyConnectionPool;
@@ -34,7 +34,8 @@ public class AddUserImgPostControllerImpl implements AddUserImgPostController {
     private AccountImgPost accountImgPost;
 
     @Override
-    public void addImgPost(String username, String fileName, byte[] bytes) {
+    public Long addImgPost(String username, String fileName, byte[] bytes) {
+        Long result;
         if (username == null || fileName == null || bytes == null){
             throw new RuntimeException("Something wrong while upload file.");
         }
@@ -50,8 +51,10 @@ public class AddUserImgPostControllerImpl implements AddUserImgPostController {
         }
 
         this.accountImgPost.setImage(blob);
-        this.accountImgPost.setDateUpload(NowDate.getNowTimestamp());
+        this.accountImgPost.setDatePost(NowDate.getNowTimestamp());
 
-        this.insertUserPostDAO.insertAccountImgPost(this.accountImgPost);
+        result = this.insertUserPostDAO.insertAccountImgPost(this.accountImgPost);
+
+        return result;
     }
 }

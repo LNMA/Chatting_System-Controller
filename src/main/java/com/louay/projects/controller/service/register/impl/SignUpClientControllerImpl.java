@@ -1,8 +1,8 @@
 package com.louay.projects.controller.service.register.impl;
 
 import com.louay.projects.controller.service.register.SignUpClientController;
-import com.louay.projects.model.chains.communications.AccountPicture;
-import com.louay.projects.model.chains.users.Users;
+import com.louay.projects.model.chains.accounts.Admin;
+import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.dao.CreateUsersDAO;
 import com.louay.projects.model.dao.InsertUserPostDAO;
 import com.louay.projects.model.util.date.NowDate;
@@ -23,7 +23,7 @@ import java.sql.SQLException;
 @Controller
 @Configuration
 @Component("signUpControl")
-@ComponentScan(basePackages = { "com.louay.projects.model"})
+@ComponentScan(basePackages = {"com.louay.projects.model"})
 @Scope("prototype")
 public class SignUpClientControllerImpl implements SignUpClientController {
 
@@ -44,7 +44,7 @@ public class SignUpClientControllerImpl implements SignUpClientController {
     private FileProcess fileProcess;
 
     @Autowired
-    private AccountPicture accountPicture;
+    private Admin accountPicture;
 
 
     @Override
@@ -52,19 +52,19 @@ public class SignUpClientControllerImpl implements SignUpClientController {
         if (users == null || users.getUsername() == null || users.getPassword() == null || users.getAccountPermission() == null ||
                 users.getUsername().length() < 4 || users.getPassword().length() < 7) {
             throw new RuntimeException("Username and password and account permission at least must be exist.");
-        } else {
-            int accountResult = this.createUsersDAO.insertUser(users);
-            if (accountResult == -404 ){
-                throw new IllegalArgumentException("SORRY! ,but username is already exist, please try again.");
-            }
-            int detailResult = this.createUsersDAO.insertClientDetail(users);
-            int uploadImgResult = this.uploadDefaultImg(users);
-            return accountResult + detailResult + uploadImgResult > 2;
         }
+        int accountResult = this.createUsersDAO.insertUser(users);
+        if (accountResult == -404) {
+            throw new IllegalArgumentException("SORRY! ,but username is already exist, please try again.");
+        }
+        int detailResult = this.createUsersDAO.insertClientDetail(users);
+        int uploadImgResult = this.uploadDefaultImg(users);
+        return accountResult + detailResult + uploadImgResult > 2;
+
     }
 
     @Override
-    public int uploadDefaultImg(Users users){
+    public int uploadDefaultImg(Users users) {
         int result = 0;
         byte[] bytes = null;
         try {
@@ -83,7 +83,7 @@ public class SignUpClientControllerImpl implements SignUpClientController {
             this.accountPicture.setUsername(users.getUsername());
             this.accountPicture.setPicture(blob);
             this.accountPicture.setPictureName("baseline_person_black_48dp.png");
-            this.accountPicture.setUploadDate(NowDate.getNowTimestamp());
+            this.accountPicture.setDateCreate(NowDate.getNowTimestamp());
             result = this.insertUserPostDAO.insertAccountPicture(this.accountPicture);
         }
         return result;

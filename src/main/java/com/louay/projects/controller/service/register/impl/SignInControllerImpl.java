@@ -1,7 +1,7 @@
 package com.louay.projects.controller.service.register.impl;
 
 import com.louay.projects.controller.service.register.SignInController;
-import com.louay.projects.model.chains.users.Users;
+import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.dao.SelectUsersDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

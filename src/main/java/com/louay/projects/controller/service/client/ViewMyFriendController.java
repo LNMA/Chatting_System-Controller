@@ -1,11 +1,10 @@
 package com.louay.projects.controller.service.client;
 
-import com.louay.projects.model.chains.users.Users;
-import com.louay.projects.model.chains.util.PictureBase64;
+import com.louay.projects.model.chains.accounts.Users;
 
-import java.util.List;
+import java.util.Set;
 
 public interface ViewMyFriendController {
 
-    List<PictureBase64> execute(Users users);
+    Set<Users> execute(Users users);
 }

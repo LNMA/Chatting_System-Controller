@@ -1,10 +1,10 @@
 package com.louay.projects.controller;
 
-import com.louay.projects.model.chains.member.UserFriend;
-import com.louay.projects.model.chains.users.Client;
-import com.louay.projects.model.constants.UserGender;
-import com.louay.projects.model.constants.UserType;
-import com.louay.projects.model.dao.CirclesUsersDAO;
+
+import com.louay.projects.model.chains.accounts.Client;
+import com.louay.projects.model.chains.accounts.constant.UserGender;
+import com.louay.projects.model.chains.accounts.constant.UserType;
+import com.louay.projects.model.chains.member.account.UserFriend;
 import com.louay.projects.model.util.date.NowDate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -35,10 +35,7 @@ public class Main {
 
         UserFriend friend = ac.getBean(UserFriend.class);
         friend.setUsername("louay");
-        friend.setFriend("louay1");
-        friend.setFriendSince(NowDate.getNowTimestamp());
-
-        CirclesUsersDAO circlesUsersDAO = (CirclesUsersDAO) ac.getBean("usersDAO");
-        circlesUsersDAO.insertUserFriends(friend);
+        friend.setFriendMember("louay1");
+        friend.setFriendMemberSince(NowDate.getNowTimestamp());
     }
 }

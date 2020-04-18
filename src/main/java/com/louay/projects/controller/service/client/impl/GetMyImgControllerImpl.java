@@ -1,7 +1,7 @@
 package com.louay.projects.controller.service.client.impl;
 
 import com.louay.projects.controller.service.client.GetMyImgController;
-import com.louay.projects.model.chains.communications.AccountPicture;
+import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.dao.SelectUsersDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,7 +25,7 @@ public class GetMyImgControllerImpl implements GetMyImgController {
     private SelectUsersDAO selectUsersDAO;
 
     @Override
-    public Set<AccountPicture> getUserPhoto(AccountPicture accountPicture){
-        return (Set<AccountPicture>) this.selectUsersDAO.findPictureByUsername(accountPicture);
+    public Set<Users> getUserPhoto(Users users){
+        return (Set<Users>) this.selectUsersDAO.findPictureByUsername(users);
     }
 }
