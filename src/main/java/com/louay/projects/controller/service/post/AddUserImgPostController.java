@@ -1,4 +1,4 @@
-package com.louay.projects.controller.service.client;
+package com.louay.projects.controller.service.post;
 
 public interface AddUserImgPostController {
 

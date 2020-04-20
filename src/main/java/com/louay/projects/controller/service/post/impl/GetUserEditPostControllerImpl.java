@@ -1,6 +1,6 @@
-package com.louay.projects.controller.service.client.impl;
+package com.louay.projects.controller.service.post.impl;
 
-import com.louay.projects.controller.service.client.GetUserEditPostController;
+import com.louay.projects.controller.service.post.GetUserEditPostController;
 import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.account.AccountImgPost;
 import com.louay.projects.model.chains.communications.account.AccountTextPost;

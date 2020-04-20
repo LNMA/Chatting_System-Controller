@@ -1,6 +1,6 @@
-package com.louay.projects.controller.service.client.impl;
+package com.louay.projects.controller.service.post.impl;
 
-import com.louay.projects.controller.service.client.GetUserCirclePostController;
+import com.louay.projects.controller.service.post.GetUserCirclePostController;
 import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.account.AccountImgPost;
@@ -84,7 +84,8 @@ public class GetUserCirclePostControllerImpl implements GetUserCirclePostControl
         if (treePostSet.size() < 1){
             AccountTextPost accountTextPost = this.context.getBean(AccountTextPost.class);
             accountTextPost.setPost("There is no post here !.");
-            accountTextPost.setUsername("System");
+            Users usersSystem = accountTextPost.getUser();
+            usersSystem.setUsername("System");
             treePostSet.add(accountTextPost);
         }
 
@@ -117,28 +118,32 @@ public class GetUserCirclePostControllerImpl implements GetUserCirclePostControl
 
     private AccountImgPost buildAccountImgPost(Users users){
         AccountImgPost accountImgPost = this.context.getBean(AccountImgPost.class);
-        accountImgPost.setUsername(users.getUsername());
+        Users usersImgPost = accountImgPost.getUser();
+        usersImgPost.setUsername(users.getUsername());
 
         return accountImgPost;
     }
 
     private AccountTextPost buildAccountTextPost(Users users){
         AccountTextPost accountTextPost = this.context.getBean(AccountTextPost.class);
-        accountTextPost.setUsername(users.getUsername());
+        Users usersTxtPost = accountTextPost.getUser();
+        usersTxtPost.setUsername(users.getUsername());
 
         return accountTextPost;
     }
 
     private GroupImgPost buildGroupImgPost(Users users){
         GroupImgPost groupImgPost = this.context.getBean(GroupImgPost.class);
-        groupImgPost.setUsername(users.getUsername());
+        Users usersGroupImgPost = groupImgPost.getUser();
+        usersGroupImgPost.setUsername(users.getUsername());
 
         return groupImgPost;
     }
 
     private GroupTextPost buildGroupTextPost(Users users){
         GroupTextPost groupTextPost = this.context.getBean(GroupTextPost.class);
-        groupTextPost.setUsername(users.getUsername());
+        Users usersGroupTextPost = groupTextPost.getUser();
+        usersGroupTextPost.setUsername(users.getUsername());
 
         return groupTextPost;
     }

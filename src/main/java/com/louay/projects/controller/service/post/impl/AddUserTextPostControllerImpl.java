@@ -1,6 +1,6 @@
-package com.louay.projects.controller.service.client.impl;
+package com.louay.projects.controller.service.post.impl;
 
-import com.louay.projects.controller.service.client.AddUserTextPostController;
+import com.louay.projects.controller.service.post.AddUserTextPostController;
 import com.louay.projects.model.chains.communications.account.AccountTextPost;
 import com.louay.projects.model.dao.InsertUserPostDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class AddUserTextPostControllerImpl implements AddUserTextPostController 
     @Override
     public Long insertUserPost(AccountTextPost accountTextPost){
         Long result;
-        if (accountTextPost == null || accountTextPost.getUsername() == null || accountTextPost.getPost() == null){
+        if (accountTextPost == null || accountTextPost.getUser().getUsername() == null || accountTextPost.getPost() == null){
             throw new RuntimeException("username or post not found");
         }else {
             result = this.insertUserPostDAO.insertAccountTextPost(accountTextPost);

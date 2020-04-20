@@ -1,6 +1,6 @@
-package com.louay.projects.controller.service.client.impl;
+package com.louay.projects.controller.service.post.impl;
 
-import com.louay.projects.controller.service.client.DeleteUserPostController;
+import com.louay.projects.controller.service.post.DeleteUserPostController;
 import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.constant.PostClassName;
 import com.louay.projects.model.dao.DeleteUserDAO;

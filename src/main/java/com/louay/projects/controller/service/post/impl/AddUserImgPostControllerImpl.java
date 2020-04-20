@@ -1,6 +1,7 @@
-package com.louay.projects.controller.service.client.impl;
+package com.louay.projects.controller.service.post.impl;
 
-import com.louay.projects.controller.service.client.AddUserImgPostController;
+import com.louay.projects.controller.service.post.AddUserImgPostController;
+import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.account.AccountImgPost;
 import com.louay.projects.model.dao.InsertUserPostDAO;
 import com.louay.projects.model.util.date.NowDate;
@@ -39,7 +40,8 @@ public class AddUserImgPostControllerImpl implements AddUserImgPostController {
         if (username == null || fileName == null || bytes == null){
             throw new RuntimeException("Something wrong while upload file.");
         }
-        this.accountImgPost.setUsername(username);
+        Users users = this.accountImgPost.getUser();
+        users.setUsername(username);
         this.accountImgPost.setFileName(fileName);
 
         java.sql.Blob blob = null;

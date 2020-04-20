@@ -1,4 +1,4 @@
-package com.louay.projects.controller.service.client;
+package com.louay.projects.controller.service.post;
 
 import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;
