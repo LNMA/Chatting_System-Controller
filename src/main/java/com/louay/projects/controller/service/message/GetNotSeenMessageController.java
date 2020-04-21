@@ -6,4 +6,6 @@ import java.util.Set;
 
 public interface GetNotSeenMessageController {
     Set<AccountMessage> getUsersAndNotSeenMessage(AccountMessage accountMessage);
+
+    int getNumberOfAllNotSeenMessage(AccountMessage accountMessage);
 }

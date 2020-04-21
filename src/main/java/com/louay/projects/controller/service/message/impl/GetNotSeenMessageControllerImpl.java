@@ -25,9 +25,25 @@ public class GetNotSeenMessageControllerImpl implements GetNotSeenMessageControl
 
     @Override
     public Set<AccountMessage>  getUsersAndNotSeenMessage(AccountMessage accountMessage){
-        if (accountMessage == null || accountMessage.getSourceUser().getUsername() == null){
+        if (accountMessage == null || accountMessage.getTargetUser().getUsername() == null){
             throw new RuntimeException("sender username must exist.");
         }
         return (Set<AccountMessage>) this.selectUsersDAO.findUserMessageAndNumNotSeenByReceiver(accountMessage);
     }
+
+    public int getNumberOfAllNotSeenMessage(AccountMessage accountMessage){
+        if (accountMessage == null || accountMessage.getTargetUser().getUsername() == null){
+            throw new RuntimeException("sender username must exist.");
+        }
+        Set<AccountMessage> messageSet =
+                (Set<AccountMessage>) this.selectUsersDAO.findUserMessageAndNumNotSeenByReceiver(accountMessage);
+
+        int result = 0;
+        for (AccountMessage m:messageSet) {
+            result += m.getNumOfNotSeen();
+        }
+        return result;
+    }
+
+
 }

@@ -40,6 +40,7 @@ public class GetMessageContentControllerImpl implements GetMessageContentControl
         Set<AccountMessage> senderSet =
                 (Set<AccountMessage>) this.selectUsersDAO.findUserMessageBySenderAndReceiver(accountMessage);
 
+
         Client temp = accountMessage.getTargetUser();
         accountMessage.setTargetUser(accountMessage.getSourceUser());
         accountMessage.setSourceUser(temp);
@@ -49,6 +50,8 @@ public class GetMessageContentControllerImpl implements GetMessageContentControl
 
         Set<AccountMessage> targetSet =
                 (Set<AccountMessage>) this.selectUsersDAO.findUserMessageAndTargetPicBySenderAndReceiver(accountMessage);
+
+
 
         TreeSet<AccountMessage> messageTreeSet = new TreeSet<>(senderSet);
         messageTreeSet.addAll(targetSet);

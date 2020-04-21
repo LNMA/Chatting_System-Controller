@@ -1,6 +1,7 @@
 package com.louay.projects.controller.service.message.impl;
 
 import com.louay.projects.controller.service.message.GetReceiverNotSeenMessageController;
+import com.louay.projects.model.chains.accounts.Client;
 import com.louay.projects.model.chains.communications.account.AccountMessage;
 import com.louay.projects.model.dao.SelectUsersDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class GetReceiverNotSeenMessageControllerImpl implements GetReceiverNotSe
                 || accountMessage.getTargetUser().getUsername() == null ){
             throw new RuntimeException("source or target account may null.");
         }
+
+        Client temp = accountMessage.getTargetUser();
+        accountMessage.setTargetUser(accountMessage.getSourceUser());
+        accountMessage.setSourceUser(temp);
 
         return (Set<AccountMessage>) this.selectUsersDAO.findUserMessageAndNumNotSeenBySenderAndReceiver(accountMessage);
     }
