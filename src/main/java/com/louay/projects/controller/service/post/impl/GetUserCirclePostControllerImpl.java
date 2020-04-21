@@ -93,7 +93,7 @@ public class GetUserCirclePostControllerImpl implements GetUserCirclePostControl
     }
 
     private Set<GroupTextPost> buildGroupTextPostSet(GroupTextPost groupTextPost){
-        return (Set<GroupTextPost>) this.selectGroupDAO.findGroupTextPostByIdGroup(groupTextPost);
+        return (Set<GroupTextPost>) this.selectGroupDAO.findGroupTextPostByUsername(groupTextPost);
     }
 
     private Set<GroupImgPost> buildGroupImgPostSet(GroupImgPost groupImgPost){

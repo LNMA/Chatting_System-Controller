@@ -2,6 +2,7 @@ package com.louay.projects.controller;
 
 
 import com.louay.projects.controller.service.message.AddMessageUserController;
+import com.louay.projects.controller.service.message.impl.GetMessageContentControllerImpl;
 import com.louay.projects.model.chains.accounts.Client;
 import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.accounts.constant.UserGender;
@@ -54,8 +55,8 @@ public class Main {
         accountMessage.setSeen(false);
         accountMessage.setSentDate(NowDate.getNowTimestamp());
 
-        SelectUsersDAO selectUsersDAO = (SelectUsersDAO) ac.getBean("usersDAO");
-        System.out.println(selectUsersDAO.findUserMessageAndNumNotSeenBySender(accountMessage).iterator().next().toString());
+        GetMessageContentControllerImpl selectUsersDAO = (GetMessageContentControllerImpl) ac.getBean("getMessage");
+        System.out.println(selectUsersDAO.getMessages(accountMessage).iterator().next().toString());
 
 
     }
