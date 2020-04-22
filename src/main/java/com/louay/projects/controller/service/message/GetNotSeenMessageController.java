@@ -5,7 +5,11 @@ import com.louay.projects.model.chains.communications.account.AccountMessage;
 import java.util.Set;
 
 public interface GetNotSeenMessageController {
-    Set<AccountMessage> getUsersAndNotSeenMessage(AccountMessage accountMessage);
+    Set<AccountMessage> getUsersAndNotSeenMessageBySenderAndReceiver(AccountMessage accountMessage);
 
-    int getNumberOfAllNotSeenMessage(AccountMessage accountMessage);
+    Set<AccountMessage>  getUsersAndNotSeenMessageByReceiver(AccountMessage accountMessage);
+
+    Set<AccountMessage>  getUsersAndNotSeenMessageBySender(AccountMessage accountMessage);
+
+    int getNumberOfAllNotSeenMessageByReceiver(AccountMessage accountMessage);
 }

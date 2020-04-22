@@ -31,15 +31,14 @@ public class GetMessageContentControllerImpl implements GetMessageContentControl
     private UpdateUserPostDAO updateUserPostDAO;
 
     @Override
-    public TreeSet<AccountMessage> getMessages(AccountMessage accountMessage){
+    public TreeSet<AccountMessage> getReceiveMessages(AccountMessage accountMessage){
         if (accountMessage == null || accountMessage.getSourceUser().getUsername() == null
                 || accountMessage.getTargetUser().getUsername() == null ){
-            throw new RuntimeException("source or target account may null.");
+            throw new RuntimeException("source or target account may null at GetMessageContentControllerImpl.class.");
         }
 
         Set<AccountMessage> senderSet =
                 (Set<AccountMessage>) this.selectUsersDAO.findUserMessageBySenderAndReceiver(accountMessage);
-
 
         Client temp = accountMessage.getTargetUser();
         accountMessage.setTargetUser(accountMessage.getSourceUser());
@@ -51,7 +50,28 @@ public class GetMessageContentControllerImpl implements GetMessageContentControl
         Set<AccountMessage> targetSet =
                 (Set<AccountMessage>) this.selectUsersDAO.findUserMessageAndTargetPicBySenderAndReceiver(accountMessage);
 
+        TreeSet<AccountMessage> messageTreeSet = new TreeSet<>(senderSet);
+        messageTreeSet.addAll(targetSet);
 
+        return messageTreeSet;
+    }
+
+    @Override
+    public TreeSet<AccountMessage> getSendMessages(AccountMessage accountMessage){
+        if (accountMessage == null || accountMessage.getSourceUser().getUsername() == null
+                || accountMessage.getTargetUser().getUsername() == null ){
+            throw new RuntimeException("source or target account may null at GetMessageContentControllerImpl.class.");
+        }
+
+        Set<AccountMessage> targetSet =
+                (Set<AccountMessage>) this.selectUsersDAO.findUserMessageAndTargetPicBySenderAndReceiver(accountMessage);
+
+        Client temp = accountMessage.getTargetUser();
+        accountMessage.setTargetUser(accountMessage.getSourceUser());
+        accountMessage.setSourceUser(temp);
+
+        Set<AccountMessage> senderSet =
+                (Set<AccountMessage>) this.selectUsersDAO.findUserMessageBySenderAndReceiver(accountMessage);
 
         TreeSet<AccountMessage> messageTreeSet = new TreeSet<>(senderSet);
         messageTreeSet.addAll(targetSet);

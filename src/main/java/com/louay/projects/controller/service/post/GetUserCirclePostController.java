@@ -8,4 +8,6 @@ import java.util.TreeSet;
 public interface GetUserCirclePostController {
 
     TreeSet<Post> getUserCirclesPost(Users users);
+
+    TreeSet<Post> getUserImgPost(Users users);
 }

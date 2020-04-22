@@ -56,7 +56,7 @@ public class Main {
         accountMessage.setSentDate(NowDate.getNowTimestamp());
 
         GetMessageContentControllerImpl selectUsersDAO = (GetMessageContentControllerImpl) ac.getBean("getMessage");
-        System.out.println(selectUsersDAO.getMessages(accountMessage).iterator().next().toString());
+        System.out.println(selectUsersDAO.getReceiveMessages(accountMessage).iterator().next().toString());
 
 
     }

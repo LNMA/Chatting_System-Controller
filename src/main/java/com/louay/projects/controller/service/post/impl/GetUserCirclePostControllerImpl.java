@@ -92,6 +92,11 @@ public class GetUserCirclePostControllerImpl implements GetUserCirclePostControl
         return treePostSet;
     }
 
+    @Override
+    public TreeSet<Post> getUserImgPost(Users users){
+        return new TreeSet<>(buildAccountImgPostSet(buildAccountImgPost(users)));
+    }
+
     private Set<GroupTextPost> buildGroupTextPostSet(GroupTextPost groupTextPost){
         return (Set<GroupTextPost>) this.selectGroupDAO.findGroupTextPostByUsername(groupTextPost);
     }

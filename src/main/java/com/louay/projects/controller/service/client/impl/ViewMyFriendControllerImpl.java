@@ -32,8 +32,6 @@ public class ViewMyFriendControllerImpl implements ViewMyFriendController {
         if (users == null || users.getUsername() == null || "".equals(users.getUsername())) {
             throw new RuntimeException("Username must be exist to perform this operation.");
         }
-
-
         return (Set<Users>) selectUsersDAO.findFriendAndPictureByUsername(users);
     }
 
