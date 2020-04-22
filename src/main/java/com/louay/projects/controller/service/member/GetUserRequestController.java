@@ -8,4 +8,8 @@ public interface GetUserRequestController {
     Map<Long, FriendRequest> getUserRequestBySenderAndReceiver(FriendRequest request);
 
     boolean isRequestSendOrReceive(FriendRequest request);
+
+    Map<Long, FriendRequest> getSentRequestAndPicByReceiver(FriendRequest request);
+
+    Map<Long, FriendRequest> getSentRequestAndPicBySender(FriendRequest request);
 }

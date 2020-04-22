@@ -8,7 +8,9 @@ import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.accounts.constant.UserGender;
 import com.louay.projects.model.chains.accounts.constant.UserType;
 import com.louay.projects.model.chains.communications.account.AccountMessage;
+import com.louay.projects.model.chains.member.account.FriendRequest;
 import com.louay.projects.model.chains.member.account.UserFriend;
+import com.louay.projects.model.dao.DeleteUserDAO;
 import com.louay.projects.model.dao.SelectGroupDAO;
 import com.louay.projects.model.dao.SelectUsersDAO;
 import com.louay.projects.model.util.date.NowDate;
@@ -55,9 +57,12 @@ public class Main {
         accountMessage.setSeen(false);
         accountMessage.setSentDate(NowDate.getNowTimestamp());
 
-        GetMessageContentControllerImpl selectUsersDAO = (GetMessageContentControllerImpl) ac.getBean("getMessage");
-        System.out.println(selectUsersDAO.getReceiveMessages(accountMessage).iterator().next().toString());
+        FriendRequest friendRequest = ac.getBean(FriendRequest.class);
+        friendRequest.getSourceAccount().setUsername("louay2");
+        friendRequest.getTargetAccount().setUsername("louay");
 
+        DeleteUserDAO selectUsersDAO = (DeleteUserDAO) ac.getBean("usersDAO");
+        selectUsersDAO.deleteFriendRequestBySenderAndReceiver(friendRequest);
 
     }
 }

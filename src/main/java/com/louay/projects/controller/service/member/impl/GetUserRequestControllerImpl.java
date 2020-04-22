@@ -43,6 +43,26 @@ public class GetUserRequestControllerImpl implements GetUserRequestController {
 
         Map<Long, FriendRequest> receiveRequest = getUserRequestBySenderAndReceiver(request);
 
-        return !(sendRequest.isEmpty() || receiveRequest.isEmpty());
+        Client tempInverse = request.getTargetAccount();
+        request.setTargetAccount(request.getSourceAccount());
+        request.setSourceAccount(tempInverse);
+
+        return !(sendRequest.isEmpty() && receiveRequest.isEmpty());
+    }
+
+    @Override
+    public Map<Long, FriendRequest> getSentRequestAndPicByReceiver(FriendRequest request){
+        if (request == null || request.getTargetAccount().getUsername() == null){
+            throw new RuntimeException("something null at GetUserRequestControllerImpl.class");
+        }
+        return this.selectUsersDAO.findFriendRequestAndPicByReceiver(request);
+    }
+
+    @Override
+    public Map<Long, FriendRequest> getSentRequestAndPicBySender(FriendRequest request){
+        if (request == null || request.getSourceAccount().getUsername() == null){
+            throw new RuntimeException("something null at GetUserRequestControllerImpl.class");
+        }
+        return this.selectUsersDAO.findFriendRequestAndPicBySender(request);
     }
 }
