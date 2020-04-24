@@ -83,7 +83,7 @@ public class AddGroupControllerImpl implements AddGroupController {
         byte[] bytes = null;
         try {
             //TODO change path to your path
-            bytes = this.fileProcess.readAPicture("C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\group_Icon.png");
+            bytes = this.fileProcess.readAPicture("C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\group_Icon.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,6 +99,28 @@ public class AddGroupControllerImpl implements AddGroupController {
             result = this.insertGroupPostDAO.insertGroupPicture(groups);
         }
         return result;
+    }
+
+    @Override
+    public java.sql.Blob GetDefaultGroupImg() {
+        int result = 0;
+        byte[] bytes = null;
+        java.sql.Blob blob = null;
+        try {
+            //TODO change path to your path
+            bytes = this.fileProcess.readAPicture("C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\group_Icon.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (bytes != null) {
+            blob = this.pool.initBlob();
+            try {
+                blob.setBytes(1, bytes);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return blob;
     }
 
 }

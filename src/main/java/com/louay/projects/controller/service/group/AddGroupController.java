@@ -8,4 +8,6 @@ public interface AddGroupController {
     int addMasterMember(Groups groups, String username);
 
     int uploadDefaultImg(Groups groups);
+
+    java.sql.Blob GetDefaultGroupImg();
 }

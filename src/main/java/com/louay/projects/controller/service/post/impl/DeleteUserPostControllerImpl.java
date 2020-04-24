@@ -3,6 +3,7 @@ package com.louay.projects.controller.service.post.impl;
 import com.louay.projects.controller.service.post.DeleteUserPostController;
 import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.constant.PostClassName;
+import com.louay.projects.model.dao.DeleteGroupDAO;
 import com.louay.projects.model.dao.DeleteUserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,6 +24,9 @@ public class DeleteUserPostControllerImpl implements DeleteUserPostController {
     @Autowired
     @Qualifier("usersDAO")
     private DeleteUserDAO deleteUserDAO;
+    @Autowired
+    @Qualifier("groupDAO")
+    private DeleteGroupDAO deleteGroupDAO;
 
     @Override
     public int deletePost(Post post, PostClassName postClassName) {
@@ -36,8 +40,14 @@ public class DeleteUserPostControllerImpl implements DeleteUserPostController {
         } else if (postClassName == PostClassName.ACCOUNT_IMG_POST) {
             result = this.deleteUserDAO.deleteAccountImgPostByIdPost(post);
 
+        } else if (postClassName == PostClassName.GROUP_TEXT_POST) {
+            result = this.deleteGroupDAO.deleteGroupTextPostByIdPost(post);
+
+        } else if (postClassName == PostClassName.GROUP_IMG_POST) {
+            result = this.deleteGroupDAO.deleteGroupImgPostByIdPost(post);
+
         } else {
-            throw new RuntimeException("Some thing wrong occurred at delete post process.");
+            throw new UnsupportedOperationException("unsupported operation at DeleteUserPostControllerImpl.class.");
 
         }
 

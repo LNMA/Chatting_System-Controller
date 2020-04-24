@@ -24,12 +24,10 @@ public class AddUserTextPostControllerImpl implements AddUserTextPostController 
 
     @Override
     public Long insertUserPost(AccountTextPost accountTextPost){
-        Long result;
         if (accountTextPost == null || accountTextPost.getUser().getUsername() == null || accountTextPost.getPost() == null){
             throw new RuntimeException("username or post not found");
-        }else {
-            result = this.insertUserPostDAO.insertAccountTextPost(accountTextPost);
         }
-        return result;
+
+        return this.insertUserPostDAO.insertAccountTextPost(accountTextPost);
     }
 }
