@@ -1,13 +1,15 @@
 package com.louay.projects.controller.service.member.impl;
 
 import com.louay.projects.controller.service.member.AddUserFriendController;
+import com.louay.projects.controller.service.member.DeleteFriendRequestController;
 import com.louay.projects.controller.service.member.GetUserFriendController;
 import com.louay.projects.model.chains.accounts.Client;
+import com.louay.projects.model.chains.member.account.FriendRequest;
 import com.louay.projects.model.chains.member.account.UserFriend;
 import com.louay.projects.model.dao.CirclesUsersDAO;
-import com.louay.projects.model.dao.SelectUsersDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -29,6 +31,14 @@ public class AddUserFriendControllerImpl implements AddUserFriendController {
     @Qualifier("usersDAO")
     private CirclesUsersDAO circlesUsersDAO;
 
+    @Autowired
+    @Qualifier("deleteFriendRequestCont")
+    private DeleteFriendRequestController deleteFriendRequestController;
+
+    @Autowired
+    @Qualifier("buildAnnotationContextControl")
+    private ApplicationContext context;
+
     @Override
     public int addUserFriend(UserFriend userFriend){
         if (userFriend == null || userFriend.getUser().getUsername() == null ||
@@ -40,13 +50,24 @@ public class AddUserFriendControllerImpl implements AddUserFriendController {
 
         int result = 0;
 
-        result = this.circlesUsersDAO.insertUserFriends(userFriend);
+        FriendRequest friendRequest = this.context.getBean(FriendRequest.class);
+        friendRequest.setSourceAccount(userFriend.getUser());
+        friendRequest.setTargetAccount(userFriend.getFriendMember());
+
+        result += this.deleteFriendRequestController.deleteUserRequestByUserAndFriend(friendRequest);
+
+        result += this.circlesUsersDAO.insertUserFriends(userFriend);
 
         Client temp = userFriend.getUser();
         userFriend.setUser(userFriend.getFriendMember());
         userFriend.setFriendMember(temp);
 
-        result = this.circlesUsersDAO.insertUserFriends(userFriend);
+        friendRequest.setTargetAccount(userFriend.getUser());
+        friendRequest.setSourceAccount(userFriend.getFriendMember());
+
+        result += this.deleteFriendRequestController.deleteUserRequestByUserAndFriend(friendRequest);
+
+        result += this.circlesUsersDAO.insertUserFriends(userFriend);
 
         Client tempInverse = userFriend.getUser();
         userFriend.setUser(userFriend.getFriendMember());
