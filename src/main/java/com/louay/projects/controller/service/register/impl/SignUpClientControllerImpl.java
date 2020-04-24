@@ -43,9 +43,6 @@ public class SignUpClientControllerImpl implements SignUpClientController {
     @Qualifier("fileOperation")
     private FileProcess fileProcess;
 
-    @Autowired
-    private Admin accountPicture;
-
 
     @Override
     public boolean execute(Users users) {
@@ -80,11 +77,9 @@ public class SignUpClientControllerImpl implements SignUpClientController {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            this.accountPicture.setUsername(users.getUsername());
-            this.accountPicture.setPicture(blob);
-            this.accountPicture.setPictureName("baseline_person_black_48dp.png");
-            this.accountPicture.setDateCreate(NowDate.getNowTimestamp());
-            result = this.insertUserPostDAO.insertAccountPicture(this.accountPicture);
+            users.setPicture(blob);
+            users.setPictureName("baseline_person_black_48dp.png");
+            result = this.insertUserPostDAO.insertAccountPicture(users);
         }
         return result;
     }

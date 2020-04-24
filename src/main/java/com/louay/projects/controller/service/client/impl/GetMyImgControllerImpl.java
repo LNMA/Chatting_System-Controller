@@ -26,6 +26,9 @@ public class GetMyImgControllerImpl implements GetMyImgController {
 
     @Override
     public Set<Users> getUserPhoto(Users users){
+        if (users == null || users.getUsername() == null){
+            throw new RuntimeException("something null at GetMyImgControllerImpl.class");
+        }
         return (Set<Users>) this.selectUsersDAO.findPictureByUsername(users);
     }
 }
