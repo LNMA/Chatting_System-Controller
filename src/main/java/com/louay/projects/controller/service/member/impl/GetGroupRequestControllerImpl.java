@@ -50,6 +50,6 @@ public class GetGroupRequestControllerImpl implements GetGroupRequestController 
         if (request == null || request.getSourceGroup().getIdGroup() == null || request.getTargetAccount().getUsername() == null){
             throw new RuntimeException("something null at GetGroupMemberControllerImpl.class.getGroupRequestAndInfoByTargetAcc");
         }
-        return this.selectGroupDAO.findGroupRequestAndInfoByUsername(request);
+        return this.selectGroupDAO.findGroupRequestAndInfoByIdGroup(request);
     }
 }

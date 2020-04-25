@@ -1,7 +1,7 @@
 package com.louay.projects.controller.service.group.impl;
 
 import com.louay.projects.controller.service.group.AddGroupController;
-import com.louay.projects.controller.service.group.AddGroupMemberController;
+import com.louay.projects.controller.service.member.AddGroupMemberController;
 import com.louay.projects.model.chains.accounts.group.Groups;
 import com.louay.projects.model.chains.member.constant.GroupMemberType;
 import com.louay.projects.model.chains.member.group.GroupMembers;
@@ -44,7 +44,7 @@ public class AddGroupControllerImpl implements AddGroupController {
     private MyConnectionPool pool;
 
     @Autowired
-    @Qualifier("addMemberGroupCont")
+    @Qualifier("addGroupMemberCont")
     private AddGroupMemberController addGroupMemberController;
 
     @Autowired
@@ -103,7 +103,6 @@ public class AddGroupControllerImpl implements AddGroupController {
 
     @Override
     public java.sql.Blob GetDefaultGroupImg() {
-        int result = 0;
         byte[] bytes = null;
         java.sql.Blob blob = null;
         try {

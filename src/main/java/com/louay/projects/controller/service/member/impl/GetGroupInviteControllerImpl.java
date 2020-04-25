@@ -45,6 +45,14 @@ public class GetGroupInviteControllerImpl implements GetGroupInviteController {
     }
 
     @Override
+    public Map<Long, GroupInvite> getGroupInviteAndTargetInfoByIdGroup(GroupInvite invite){
+        if (invite == null || invite.getSourceGroup().getIdGroup() == null || invite.getTargetAccount().getUsername() == null){
+            throw new RuntimeException("something null at GetGroupInviteControllerImpl.class.getGroupInviteAndTargetInfoByIdGroup.");
+        }
+        return this.selectGroupDAO.findGroupInviteAndTargetInfoByIdGroup(invite);
+    }
+
+    @Override
     public Map<Long, GroupInvite> getGroupInviteAndGroupPicByUsername(GroupInvite invite){
         if (invite == null || invite.getSourceGroup().getIdGroup() == null || invite.getTargetAccount().getUsername() == null){
             throw new RuntimeException("something null at GetGroupInviteControllerImpl.class.getGroupInviteAndGroupPicByUsername");
