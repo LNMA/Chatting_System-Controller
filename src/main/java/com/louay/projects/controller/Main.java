@@ -1,10 +1,18 @@
 package com.louay.projects.controller;
 
 
+import com.louay.projects.controller.service.message.AddMessageUserController;
+import com.louay.projects.controller.service.message.impl.GetMessageContentControllerImpl;
 import com.louay.projects.model.chains.accounts.Client;
+import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.accounts.constant.UserGender;
 import com.louay.projects.model.chains.accounts.constant.UserType;
+import com.louay.projects.model.chains.communications.account.AccountMessage;
+import com.louay.projects.model.chains.member.account.FriendRequest;
 import com.louay.projects.model.chains.member.account.UserFriend;
+import com.louay.projects.model.dao.DeleteUserDAO;
+import com.louay.projects.model.dao.SelectGroupDAO;
+import com.louay.projects.model.dao.SelectUsersDAO;
 import com.louay.projects.model.util.date.NowDate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -34,8 +42,27 @@ public class Main {
         user.setAddress("qatar street");
 
         UserFriend friend = ac.getBean(UserFriend.class);
-        friend.setUsername("louay");
-        friend.setFriendMember("louay1");
+        Users users = friend.getUser();
+        Users friendMember = friend.getFriendMember();
+        users.setUsername("louay");
+        friendMember.setUsername("louay1");
         friend.setFriendMemberSince(NowDate.getNowTimestamp());
+
+        AccountMessage accountMessage = ac.getBean(AccountMessage.class);
+        Users sourceUser = accountMessage.getSourceUser();
+        sourceUser.setUsername("louay");
+        Users targetUser = accountMessage.getTargetUser();
+        targetUser.setUsername("louay1");
+        accountMessage.setMessageStringBuilder(new StringBuilder("welcome"));
+        accountMessage.setSeen(false);
+        accountMessage.setSentDate(NowDate.getNowTimestamp());
+
+        FriendRequest friendRequest = ac.getBean(FriendRequest.class);
+        friendRequest.getSourceAccount().setUsername("louay2");
+        friendRequest.getTargetAccount().setUsername("louay");
+
+        DeleteUserDAO selectUsersDAO = (DeleteUserDAO) ac.getBean("usersDAO");
+        selectUsersDAO.deleteFriendRequestBySenderAndReceiver(friendRequest);
+
     }
 }

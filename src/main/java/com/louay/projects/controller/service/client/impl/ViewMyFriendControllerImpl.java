@@ -26,20 +26,13 @@ public class ViewMyFriendControllerImpl implements ViewMyFriendController {
     @Qualifier("usersDAO")
     private SelectUsersDAO selectUsersDAO;
 
-    @Autowired
-    @Qualifier("buildAnnotationContextControl")
-    private ApplicationContext context;
-
 
     @Override
     public Set<Users> execute(Users users) {
         if (users == null || users.getUsername() == null || "".equals(users.getUsername())) {
             throw new RuntimeException("Username must be exist to perform this operation.");
         }
-
-        Set<Users> container = (Set<Users>) selectUsersDAO.findFriendAndPictureByUsername(users);
-
-        return container;
+        return (Set<Users>) selectUsersDAO.findFriendAndPictureByUsername(users);
     }
 
 }

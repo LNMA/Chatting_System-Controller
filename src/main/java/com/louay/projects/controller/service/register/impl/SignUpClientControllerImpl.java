@@ -1,11 +1,9 @@
 package com.louay.projects.controller.service.register.impl;
 
 import com.louay.projects.controller.service.register.SignUpClientController;
-import com.louay.projects.model.chains.accounts.Admin;
 import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.dao.CreateUsersDAO;
 import com.louay.projects.model.dao.InsertUserPostDAO;
-import com.louay.projects.model.util.date.NowDate;
 import com.louay.projects.model.util.file.FileProcess;
 import com.louay.projects.model.util.pool.MyConnectionPool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +41,6 @@ public class SignUpClientControllerImpl implements SignUpClientController {
     @Qualifier("fileOperation")
     private FileProcess fileProcess;
 
-    @Autowired
-    private Admin accountPicture;
-
 
     @Override
     public boolean execute(Users users) {
@@ -69,7 +64,7 @@ public class SignUpClientControllerImpl implements SignUpClientController {
         byte[] bytes = null;
         try {
             //TODO change path to your path
-            bytes = this.fileProcess.readAPicture("C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\baseline_person_black_48dp.png");
+            bytes = this.fileProcess.readAPicture("C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\person_black.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,11 +75,9 @@ public class SignUpClientControllerImpl implements SignUpClientController {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            this.accountPicture.setUsername(users.getUsername());
-            this.accountPicture.setPicture(blob);
-            this.accountPicture.setPictureName("baseline_person_black_48dp.png");
-            this.accountPicture.setDateCreate(NowDate.getNowTimestamp());
-            result = this.insertUserPostDAO.insertAccountPicture(this.accountPicture);
+            users.setPicture(blob);
+            users.setPictureName("baseline_person_black_48dp.png");
+            result = this.insertUserPostDAO.insertAccountPicture(users);
         }
         return result;
     }
