@@ -8,4 +8,8 @@ public interface GetGroupRequestController {
     Map<Long, GroupRequest> getGroupRequest(GroupRequest request);
 
     boolean isRequestSent(GroupRequest request);
+
+    Map<Long, GroupRequest> getGroupRequestAndInfoByUsername(GroupRequest request);
+
+    Map<Long, GroupRequest> getGroupRequestAndInfoByIdGroup(GroupRequest request);
 }

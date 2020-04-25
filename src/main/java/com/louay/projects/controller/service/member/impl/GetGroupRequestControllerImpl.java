@@ -26,7 +26,7 @@ public class GetGroupRequestControllerImpl implements GetGroupRequestController 
     @Override
     public Map<Long, GroupRequest> getGroupRequest(GroupRequest request){
         if (request == null || request.getSourceGroup().getIdGroup() == null || request.getTargetAccount().getUsername() == null){
-            throw new RuntimeException("something null at GetGroupMemberControllerImpl.class");
+            throw new RuntimeException("something null at GetGroupMemberControllerImpl.class.getGroupRequest");
         }
         return this.selectGroupDAO.findGroupRequestByUsernameAndIdGroup(request);
     }
@@ -34,5 +34,22 @@ public class GetGroupRequestControllerImpl implements GetGroupRequestController 
     @Override
     public boolean isRequestSent(GroupRequest request){
         return !getGroupRequest(request).isEmpty();
+    }
+
+
+    @Override
+    public Map<Long, GroupRequest> getGroupRequestAndInfoByUsername(GroupRequest request){
+        if (request == null || request.getSourceGroup().getIdGroup() == null || request.getTargetAccount().getUsername() == null){
+            throw new RuntimeException("something null at GetGroupMemberControllerImpl.class.getGroupRequestAndInfoByTargetAcc");
+        }
+        return this.selectGroupDAO.findGroupRequestAndInfoByUsername(request);
+    }
+
+    @Override
+    public Map<Long, GroupRequest> getGroupRequestAndInfoByIdGroup(GroupRequest request){
+        if (request == null || request.getSourceGroup().getIdGroup() == null || request.getTargetAccount().getUsername() == null){
+            throw new RuntimeException("something null at GetGroupMemberControllerImpl.class.getGroupRequestAndInfoByTargetAcc");
+        }
+        return this.selectGroupDAO.findGroupRequestAndInfoByUsername(request);
     }
 }

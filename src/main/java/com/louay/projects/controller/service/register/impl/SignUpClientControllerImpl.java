@@ -64,7 +64,7 @@ public class SignUpClientControllerImpl implements SignUpClientController {
         byte[] bytes = null;
         try {
             //TODO change path to your path
-            bytes = this.fileProcess.readAPicture("C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\person_black.png");
+            bytes = this.fileProcess.readAPicture("C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\person_black.png");
         } catch (IOException e) {
             e.printStackTrace();
         }

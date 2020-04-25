@@ -26,7 +26,7 @@ public class GetGroupInviteControllerImpl implements GetGroupInviteController {
     @Override
     public Map<Long, GroupInvite> getGroupInviteByIdAndUsername(GroupInvite invite){
         if (invite == null || invite.getSourceGroup().getIdGroup() == null || invite.getTargetAccount().getUsername() == null){
-            throw new RuntimeException("something null at GetGroupInviteControllerImpl.class");
+            throw new RuntimeException("something null at GetGroupInviteControllerImpl.class.getGroupInviteByIdAndUsername");
         }
         return this.selectGroupDAO.findGroupInviteByUsernameAndIdGroup(invite);
     }
@@ -34,5 +34,21 @@ public class GetGroupInviteControllerImpl implements GetGroupInviteController {
     @Override
     public boolean isImInvited(GroupInvite invite){
         return !getGroupInviteByIdAndUsername(invite).isEmpty();
+    }
+
+    @Override
+    public Map<Long, GroupInvite> getGroupInviteAndTargetInfoByUsername(GroupInvite invite){
+        if (invite == null || invite.getSourceGroup().getIdGroup() == null || invite.getTargetAccount().getUsername() == null){
+            throw new RuntimeException("something null at GetGroupInviteControllerImpl.class.getGroupInviteAndTargetInfoByUsername");
+        }
+        return this.selectGroupDAO.findGroupInviteAndTargetInfoByUsername(invite);
+    }
+
+    @Override
+    public Map<Long, GroupInvite> getGroupInviteAndGroupPicByUsername(GroupInvite invite){
+        if (invite == null || invite.getSourceGroup().getIdGroup() == null || invite.getTargetAccount().getUsername() == null){
+            throw new RuntimeException("something null at GetGroupInviteControllerImpl.class.getGroupInviteAndGroupPicByUsername");
+        }
+        return this.selectGroupDAO.findGroupInviteAndGroupPicByUsername(invite);
     }
 }
