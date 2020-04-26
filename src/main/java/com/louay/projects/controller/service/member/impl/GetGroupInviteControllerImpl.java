@@ -38,7 +38,7 @@ public class GetGroupInviteControllerImpl implements GetGroupInviteController {
 
     @Override
     public Map<Long, GroupInvite> getGroupInviteAndTargetInfoByUsername(GroupInvite invite){
-        if (invite == null || invite.getSourceGroup().getIdGroup() == null || invite.getTargetAccount().getUsername() == null){
+        if (invite == null ||  invite.getTargetAccount().getUsername() == null){
             throw new RuntimeException("something null at GetGroupInviteControllerImpl.class.getGroupInviteAndTargetInfoByUsername");
         }
         return this.selectGroupDAO.findGroupInviteAndTargetInfoByUsername(invite);
@@ -46,17 +46,17 @@ public class GetGroupInviteControllerImpl implements GetGroupInviteController {
 
     @Override
     public Map<Long, GroupInvite> getGroupInviteAndTargetInfoByIdGroup(GroupInvite invite){
-        if (invite == null || invite.getSourceGroup().getIdGroup() == null || invite.getTargetAccount().getUsername() == null){
+        if (invite == null || invite.getSourceGroup().getIdGroup() == null ){
             throw new RuntimeException("something null at GetGroupInviteControllerImpl.class.getGroupInviteAndTargetInfoByIdGroup.");
         }
         return this.selectGroupDAO.findGroupInviteAndTargetInfoByIdGroup(invite);
     }
 
     @Override
-    public Map<Long, GroupInvite> getGroupInviteAndGroupPicByUsername(GroupInvite invite){
-        if (invite == null || invite.getSourceGroup().getIdGroup() == null || invite.getTargetAccount().getUsername() == null){
+    public Map<Long, GroupInvite> getGroupInviteAndGroupPicByUsername(GroupInvite invite, long startKey){
+        if (invite == null || invite.getTargetAccount().getUsername() == null){
             throw new RuntimeException("something null at GetGroupInviteControllerImpl.class.getGroupInviteAndGroupPicByUsername");
         }
-        return this.selectGroupDAO.findGroupInviteAndGroupPicByUsername(invite);
+        return this.selectGroupDAO.findGroupInviteAndGroupPicByUsername(invite, startKey);
     }
 }

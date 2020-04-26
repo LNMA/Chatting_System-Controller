@@ -70,17 +70,17 @@ public class GetUserRequestControllerImpl implements GetUserRequestController {
         GroupInvite invite = this.context.getBean(GroupInvite.class);
         invite.getTargetAccount().setUsername(request.getTargetAccount().getUsername());
 
-        Map<Long, ? extends Request> groupInviteMap = inviteController.getGroupInviteAndGroupPicByUsername(invite);
-
         Map<Long, ? extends Request> friendRequestMap = this.selectUsersDAO.findFriendRequestAndPicByReceiver(request);
+
+        Map<Long, ? extends Request> groupInviteMap = inviteController.getGroupInviteAndGroupPicByUsername(invite, friendRequestMap.size()+1);
 
         TreeMap<Long , Request> treeMap = new TreeMap<>();
 
-        if (!groupInviteMap.isEmpty()){
-            treeMap.putAll(groupInviteMap);
-        }
         if (!friendRequestMap.isEmpty()){
             treeMap.putAll(friendRequestMap);
+        }
+        if (!groupInviteMap.isEmpty()){
+            treeMap.putAll(groupInviteMap);
         }
 
         return treeMap;

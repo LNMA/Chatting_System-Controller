@@ -31,7 +31,7 @@ public class AddGroupInviteControllerImpl implements AddGroupInviteController {
         if (groupInvite == null || groupInvite.getSourceGroup().getIdGroup() == null
                 || groupInvite.getTargetAccount().getUsername() == null ||
                 this.getGroupInviteController.isImInvited(groupInvite)){
-            throw new RuntimeException("something null wrong AddGroupInviteControllerImpl.class.addGroupInvite.");
+            throw new RuntimeException("something null or wrong AddGroupInviteControllerImpl.class.addGroupInvite.");
 
         }
         return this.circlesGroupDAO.insertGroupInvite(groupInvite);
