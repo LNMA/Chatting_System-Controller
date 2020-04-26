@@ -1,7 +1,8 @@
 package com.louay.projects.controller.service.member.impl;
 
-import com.louay.projects.controller.service.member.DeleteGroupInviteController;
+import com.louay.projects.controller.service.member.DeleteGroupInviteRequestController;
 import com.louay.projects.model.chains.member.group.GroupInvite;
+import com.louay.projects.model.chains.member.group.GroupRequest;
 import com.louay.projects.model.dao.DeleteGroupDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Controller;
 @Component("deleteGroupInviteCont")
 @ComponentScan(basePackages = {"com.louay.projects.model"})
 @Scope("prototype")
-public class DeleteGroupInviteControllerImpl implements DeleteGroupInviteController {
+public class DeleteGroupInviteRequestRequestControllerImpl implements DeleteGroupInviteRequestController {
     @Autowired
     @Qualifier("groupDAO")
     private DeleteGroupDAO deleteGroupDAO;
@@ -27,5 +28,13 @@ public class DeleteGroupInviteControllerImpl implements DeleteGroupInviteControl
             throw new RuntimeException("something null at DeleteGroupInviteControllerImpl.class.deleteInvite");
         }
         return this.deleteGroupDAO.deleteGroupInviteByIdGroupAndUsername(invite);
+    }
+
+    @Override
+    public int deleteRequest(GroupRequest request){
+        if (request == null || request.getSourceGroup().getIdGroup() == null || request.getTargetAccount().getUsername() == null){
+            throw new RuntimeException("something null at DeleteGroupInviteControllerImpl.class.deleteRequest");
+        }
+        return this.deleteGroupDAO.deleteGroupRequestByIdGroupAndUsername(request);
     }
 }

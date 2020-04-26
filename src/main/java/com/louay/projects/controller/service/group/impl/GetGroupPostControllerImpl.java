@@ -40,7 +40,7 @@ public class GetGroupPostControllerImpl implements GetGroupPostController {
 
     public TreeSet<Post> getGroupPost(Groups groups){
         if (groups == null || groups.getIdGroup() == null ){
-            throw new RuntimeException("something null at GetGroupPostControllerImpl.class.");
+            throw new RuntimeException("something null at GetGroupPostControllerImpl.class.getGroupPost.");
         }
         this.groupTextPost.setGroups(groups);
 
@@ -66,6 +66,25 @@ public class GetGroupPostControllerImpl implements GetGroupPostController {
             this.groupTextPost.setPost("There is no post here !.");
             this.groupTextPost.setDatePost(NowDate.getNowTimestamp());
             postTreeSet.add(this.groupTextPost);
+        }
+
+        return postTreeSet;
+    }
+
+    @Override
+    public TreeSet<Post> getGroupImgPost(GroupImgPost groupImgPost){
+        if (groupImgPost == null || groupImgPost.getGroups().getIdGroup() == null ){
+            throw new RuntimeException("something null at GetGroupPostControllerImpl.class.getGroupImgPost.");
+        }
+
+        this.groupImgPost.setGroups(groupImgPost.getGroups());
+
+        Set<? extends Post> imgPostSet = (Set<? extends Post>) this.selectGroupDAO.findGroupImgPostByIdGroup(this.groupImgPost);
+
+        TreeSet<Post> postTreeSet = new TreeSet<>();
+
+        if (!imgPostSet.isEmpty()){
+            postTreeSet.addAll(imgPostSet);
         }
 
         return postTreeSet;

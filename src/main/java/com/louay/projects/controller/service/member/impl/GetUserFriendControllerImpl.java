@@ -49,4 +49,12 @@ public class GetUserFriendControllerImpl implements GetUserFriendController {
 
         return !(friendMap.isEmpty() && friendMapInverse.isEmpty());
     }
+
+    @Override
+    public Map<Long, UserFriend> getUserFriendMemberAndInfoByUsername(UserFriend userFriend){
+        if (userFriend == null || userFriend.getUser().getUsername() == null){
+            throw  new RuntimeException("something null at GetUserFriendControllerImpl.class.getUserFriendMemberAndInfoByUsername.");
+        }
+        return this.selectUsersDAO.findUserFriendAndInfoByUsername(userFriend);
+    }
 }
