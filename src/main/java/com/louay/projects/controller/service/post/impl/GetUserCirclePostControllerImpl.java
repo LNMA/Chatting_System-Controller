@@ -1,6 +1,8 @@
 package com.louay.projects.controller.service.post.impl;
 
 import com.louay.projects.controller.service.post.GetUserCirclePostController;
+import com.louay.projects.controller.service.register.SignUpClientController;
+import com.louay.projects.model.chains.accounts.Client;
 import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.account.AccountImgPost;
@@ -9,6 +11,7 @@ import com.louay.projects.model.chains.communications.group.GroupImgPost;
 import com.louay.projects.model.chains.communications.group.GroupTextPost;
 import com.louay.projects.model.dao.SelectGroupDAO;
 import com.louay.projects.model.dao.SelectUsersDAO;
+import com.louay.projects.model.util.date.NowDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -24,7 +27,7 @@ import java.util.TreeSet;
 @Controller
 @Configuration
 @Component("getUserCirclePost")
-@ComponentScan(basePackages = { "com.louay.projects.model"})
+@ComponentScan(basePackages = {"com.louay.projects.model"})
 @Scope("prototype")
 public class GetUserCirclePostControllerImpl implements GetUserCirclePostController {
 
@@ -41,7 +44,10 @@ public class GetUserCirclePostControllerImpl implements GetUserCirclePostControl
     private ApplicationContext context;
 
     @Override
-    public TreeSet<Post> getUserCirclesPost(Users users){
+    public TreeSet<Post> getUserCirclesPost(Users users) {
+        if (users == null || users.getUsername() == null) {
+            throw new RuntimeException("something null at GetUserCirclePostControllerImpl.class.getUserCirclesPost.");
+        }
         Set<AccountTextPost> accountTextPostSet = buildAccountTextPostSet(buildAccountTextPost(users));
 
         Set<AccountImgPost> accountImgPostSet = buildAccountImgPostSet(buildAccountImgPost(users));
@@ -54,38 +60,54 @@ public class GetUserCirclePostControllerImpl implements GetUserCirclePostControl
 
         Set<GroupImgPost> groupImgPostSet = buildGroupImgPostSet(buildGroupImgPost(users));
 
+        Set<GroupTextPost> friendGroupTextPostSet = buildFriendGroupTextPostSet(buildGroupTextPost(users));
+
+        Set<GroupImgPost> friendGroupImgPostSet = buildFriendGroupImgPostSet(buildGroupImgPost(users));
+
 
         TreeSet<Post> treePostSet = new TreeSet<>();
 
-        if (accountTextPostSet.size() > 0){
+        if (!accountTextPostSet.isEmpty()) {
             treePostSet.addAll(accountTextPostSet);
         }
 
-        if (accountImgPostSet.size() > 0){
+        if (!accountImgPostSet.isEmpty()) {
             treePostSet.addAll(accountImgPostSet);
         }
 
-        if (friendTextPostSet.size() > 0){
+        if (!friendTextPostSet.isEmpty()) {
             treePostSet.addAll(friendTextPostSet);
         }
 
-        if (friendImgPostSet.size() > 0){
+        if (!friendImgPostSet.isEmpty()) {
             treePostSet.addAll(friendImgPostSet);
         }
 
-        if (groupImgPostSet.size() > 0){
+        if (!groupImgPostSet.isEmpty()) {
             treePostSet.addAll(groupImgPostSet);
         }
 
-        if (groupTextPostSet.size() > 0){
+        if (!groupTextPostSet.isEmpty()) {
             treePostSet.addAll(groupTextPostSet);
         }
 
-        if (treePostSet.size() < 1){
+        if (!friendGroupTextPostSet.isEmpty()) {
+            treePostSet.addAll(friendGroupTextPostSet);
+        }
+
+        if (!friendGroupImgPostSet.isEmpty()) {
+            treePostSet.addAll(friendGroupImgPostSet);
+        }
+
+        if (treePostSet.isEmpty()) {
+            SignUpClientController signUpControl = (SignUpClientController) this.context.getBean("signUpControl");
             AccountTextPost accountTextPost = this.context.getBean(AccountTextPost.class);
-            accountTextPost.setPost("There is no post here !.");
             Users usersSystem = accountTextPost.getUser();
+
             usersSystem.setUsername("System");
+            usersSystem.setPicture(signUpControl.GetDefaultUserImg());
+            accountTextPost.setDatePost(NowDate.getNowTimestamp());
+            accountTextPost.setPost("There is no post here !.");
             treePostSet.add(accountTextPost);
         }
 
@@ -93,35 +115,83 @@ public class GetUserCirclePostControllerImpl implements GetUserCirclePostControl
     }
 
     @Override
-    public TreeSet<Post> getUserImgPost(Users users){
-        return new TreeSet<>(buildAccountImgPostSet(buildAccountImgPost(users)));
+    public TreeSet<Post> getUserPostOnly(Users users) {
+        if (users == null || users.getUsername() == null) {
+            throw new RuntimeException("something null at GetUserCirclePostControllerImpl.class.getUserPostOnly.");
+        }
+        Set<AccountTextPost> accountTextPostSet = buildAccountTextPostSet(buildAccountTextPost(users));
+
+        Set<AccountImgPost> accountImgPostSet = buildAccountImgPostSet(buildAccountImgPost(users));
+
+        TreeSet<Post> treePostSet = new TreeSet<>();
+
+        if (!accountTextPostSet.isEmpty()) {
+            treePostSet.addAll(accountTextPostSet);
+        }
+
+        if (!accountImgPostSet.isEmpty()) {
+            treePostSet.addAll(accountImgPostSet);
+        }
+
+        if (treePostSet.isEmpty()) {
+            SignUpClientController signUpControl = (SignUpClientController) this.context.getBean("signUpControl");
+            AccountTextPost accountTextPost = this.context.getBean(AccountTextPost.class);
+            Client usersSystem = accountTextPost.getUser();
+
+            usersSystem.setFirstName("System");
+            usersSystem.setPicture(signUpControl.GetDefaultUserImg());
+            accountTextPost.setDatePost(NowDate.getNowTimestamp());
+            accountTextPost.setPost("There is no post here !.");
+            treePostSet.add(accountTextPost);
+        }
+
+        return treePostSet;
     }
 
-    private Set<GroupTextPost> buildGroupTextPostSet(GroupTextPost groupTextPost){
-        return (Set<GroupTextPost>) this.selectGroupDAO.findGroupTextPostByUsername(groupTextPost);
+    @Override
+    public TreeSet<Post> getUserImgPost(Users users) {
+        if (users == null || users.getUsername() == null) {
+            throw new RuntimeException("something null at GetUserCirclePostControllerImpl.class.getUserImgPost.");
+        }
+        Set<AccountImgPost> imgPostSet =
+                (Set<AccountImgPost>) this.selectUsersDAO.findUserImgPostByUsername(buildAccountImgPost(users));
+
+        return new TreeSet<>(imgPostSet);
     }
 
-    private Set<GroupImgPost> buildGroupImgPostSet(GroupImgPost groupImgPost){
-        return (Set<GroupImgPost>) this.selectGroupDAO.findGroupImgPostByUsername(groupImgPost);
+    private Set<GroupTextPost> buildFriendGroupTextPostSet(GroupTextPost groupTextPost) {
+        return (Set<GroupTextPost>) this.selectGroupDAO.findUserFiendGroupTextPostAndUserGroupInfoByUsername(groupTextPost);
     }
 
-    private Set<AccountImgPost> buildFriendImgPostSet(AccountImgPost accountTextPost){
-        return (Set<AccountImgPost>) this.selectUsersDAO.findUserFriendImgPostByUsername(accountTextPost);
+    private Set<GroupImgPost> buildFriendGroupImgPostSet(GroupImgPost groupImgPost) {
+        return (Set<GroupImgPost>) this.selectGroupDAO.findUserFriendGroupImgPostAndUserGroupInfoByUsername(groupImgPost);
     }
 
-    private Set<AccountTextPost> buildFriendTextPostSet(AccountTextPost accountTextPost){
-        return (Set<AccountTextPost>) this.selectUsersDAO.findUserFriendTextPostByUsername(accountTextPost);
+    private Set<GroupTextPost> buildGroupTextPostSet(GroupTextPost groupTextPost) {
+        return (Set<GroupTextPost>) this.selectGroupDAO.findGroupTextPostAndUserGroupInfoByUsername(groupTextPost);
     }
 
-    private Set<AccountImgPost> buildAccountImgPostSet(AccountImgPost accountTextPost){
-        return (Set<AccountImgPost>) this.selectUsersDAO.findUserImgPostByUsername(accountTextPost);
+    private Set<GroupImgPost> buildGroupImgPostSet(GroupImgPost groupImgPost) {
+        return (Set<GroupImgPost>) this.selectGroupDAO.findGroupImgPostAndUserGroupInfoByUsername(groupImgPost);
     }
 
-    private Set<AccountTextPost> buildAccountTextPostSet(AccountTextPost accountTextPost){
-        return (Set<AccountTextPost>) this.selectUsersDAO.findUserTextPostByUsername(accountTextPost);
+    private Set<AccountImgPost> buildFriendImgPostSet(AccountImgPost accountImgPost) {
+        return (Set<AccountImgPost>) this.selectUsersDAO.findUserFriendImgPostAndInfoByUsername(accountImgPost);
     }
 
-    private AccountImgPost buildAccountImgPost(Users users){
+    private Set<AccountTextPost> buildFriendTextPostSet(AccountTextPost accountTextPost) {
+        return (Set<AccountTextPost>) this.selectUsersDAO.findUserFriendTextPostAndInfoByUsername(accountTextPost);
+    }
+
+    private Set<AccountImgPost> buildAccountImgPostSet(AccountImgPost accountImgPost) {
+        return (Set<AccountImgPost>) this.selectUsersDAO.findUserImgPostAndInfoByUsername(accountImgPost);
+    }
+
+    private Set<AccountTextPost> buildAccountTextPostSet(AccountTextPost accountTextPost) {
+        return (Set<AccountTextPost>) this.selectUsersDAO.findUserTextPostAndInfoByUsername(accountTextPost);
+    }
+
+    private AccountImgPost buildAccountImgPost(Users users) {
         AccountImgPost accountImgPost = this.context.getBean(AccountImgPost.class);
         Users usersImgPost = accountImgPost.getUser();
         usersImgPost.setUsername(users.getUsername());
@@ -129,7 +199,7 @@ public class GetUserCirclePostControllerImpl implements GetUserCirclePostControl
         return accountImgPost;
     }
 
-    private AccountTextPost buildAccountTextPost(Users users){
+    private AccountTextPost buildAccountTextPost(Users users) {
         AccountTextPost accountTextPost = this.context.getBean(AccountTextPost.class);
         Users usersTxtPost = accountTextPost.getUser();
         usersTxtPost.setUsername(users.getUsername());
@@ -137,7 +207,7 @@ public class GetUserCirclePostControllerImpl implements GetUserCirclePostControl
         return accountTextPost;
     }
 
-    private GroupImgPost buildGroupImgPost(Users users){
+    private GroupImgPost buildGroupImgPost(Users users) {
         GroupImgPost groupImgPost = this.context.getBean(GroupImgPost.class);
         Users usersGroupImgPost = groupImgPost.getUser();
         usersGroupImgPost.setUsername(users.getUsername());
@@ -145,7 +215,7 @@ public class GetUserCirclePostControllerImpl implements GetUserCirclePostControl
         return groupImgPost;
     }
 
-    private GroupTextPost buildGroupTextPost(Users users){
+    private GroupTextPost buildGroupTextPost(Users users) {
         GroupTextPost groupTextPost = this.context.getBean(GroupTextPost.class);
         Users usersGroupTextPost = groupTextPost.getUser();
         usersGroupTextPost.setUsername(users.getUsername());
