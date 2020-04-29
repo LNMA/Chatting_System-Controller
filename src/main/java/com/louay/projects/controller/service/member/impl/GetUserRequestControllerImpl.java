@@ -88,6 +88,14 @@ public class GetUserRequestControllerImpl implements GetUserRequestController {
     }
 
     @Override
+    public int numberOfReceiveRequest(FriendRequest request){
+        if (request == null || request.getTargetAccount().getUsername() == null){
+            throw new RuntimeException("something null at GetUserRequestControllerImpl.class.numberOfReceiveRequest.");
+        }
+        return this.getSentRequestAndPicByReceiver(request).size();
+    }
+
+    @Override
     public Map<Long, Request> getSentRequestAndPicBySender(FriendRequest request){
         if (request == null || request.getSourceAccount().getUsername() == null){
             throw new RuntimeException("something null at GetUserRequestControllerImpl.class");

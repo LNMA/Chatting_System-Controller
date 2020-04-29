@@ -83,7 +83,7 @@ public class AddGroupControllerImpl implements AddGroupController {
         byte[] bytes = null;
         try {
             //TODO change path to your path
-            bytes = this.fileProcess.readAPicture("C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\group_Icon.png");
+            bytes = this.fileProcess.readAPicture("C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\group_Icon.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,7 +107,7 @@ public class AddGroupControllerImpl implements AddGroupController {
         java.sql.Blob blob = null;
         try {
             //TODO change path to your path
-            bytes = this.fileProcess.readAPicture("C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\group_Icon.png");
+            bytes = this.fileProcess.readAPicture("C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\group_Icon.png");
         } catch (IOException e) {
             e.printStackTrace();
         }

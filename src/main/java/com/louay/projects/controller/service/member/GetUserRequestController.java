@@ -12,5 +12,7 @@ public interface GetUserRequestController {
 
     Map<Long , Request> getSentRequestAndPicByReceiver(FriendRequest request);
 
+    int numberOfReceiveRequest(FriendRequest request);
+
     Map<Long, Request> getSentRequestAndPicBySender(FriendRequest request);
 }
