@@ -43,8 +43,15 @@ public class SearchAccountGroupControllerImpl implements SearchAccountGroupContr
         Set<Users> usersSet = (Set<Users>) this.selectUsersDAO.findUserInAccountByLikeUsername(buildUser(key));
         Set<Groups> groupsSet = (Set<Groups>) this.selectGroupDAO.findGroupDetailByLikeIdGroup(buildGroupDetail(key));
 
-        Set<Accounts> accountsSet = new HashSet<>(usersSet);
-        accountsSet.addAll(groupsSet);
+        Set<Accounts> accountsSet = new HashSet<>();
+
+
+        if (!groupsSet.isEmpty()){
+            accountsSet.addAll(groupsSet);
+        }
+        if (!usersSet.isEmpty()){
+            accountsSet.addAll(usersSet);
+        }
 
         return accountsSet;
     }

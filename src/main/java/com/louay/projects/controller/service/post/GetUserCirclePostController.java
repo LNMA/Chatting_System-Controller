@@ -10,4 +10,6 @@ public interface GetUserCirclePostController {
     TreeSet<Post> getUserCirclesPost(Users users);
 
     TreeSet<Post> getUserImgPost(Users users);
+
+    TreeSet<Post> getUserPostOnly(Users users);
 }

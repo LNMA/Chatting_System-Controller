@@ -12,4 +12,6 @@ public interface GetGroupRequestController {
     Map<Long, GroupRequest> getGroupRequestAndInfoByUsername(GroupRequest request);
 
     Map<Long, GroupRequest> getGroupRequestAndInfoByIdGroup(GroupRequest request);
+
+    Map<Long, GroupRequest> getGroupRequestAndGroupPicByUsername(GroupRequest request, long startKey);
 }

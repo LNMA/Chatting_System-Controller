@@ -11,5 +11,7 @@ public interface GetGroupInviteController {
 
     Map<Long, GroupInvite> getGroupInviteAndTargetInfoByUsername(GroupInvite invite);
 
-    Map<Long, GroupInvite> getGroupInviteAndGroupPicByUsername(GroupInvite invite);
+    Map<Long, GroupInvite> getGroupInviteAndGroupPicByUsername(GroupInvite invite, long startKey);
+
+    Map<Long, GroupInvite> getGroupInviteAndTargetInfoByIdGroup(GroupInvite invite);
 }

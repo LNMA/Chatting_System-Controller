@@ -81,4 +81,25 @@ public class SignUpClientControllerImpl implements SignUpClientController {
         }
         return result;
     }
+
+    @Override
+    public java.sql.Blob GetDefaultUserImg() {
+        byte[] bytes = null;
+        java.sql.Blob blob = null;
+        try {
+            //TODO change path to your path
+            bytes = this.fileProcess.readAPicture("C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-Controller\\myImg\\person_black.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (bytes != null) {
+            blob = this.pool.initBlob();
+            try {
+                blob.setBytes(1, bytes);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return blob;
+    }
 }

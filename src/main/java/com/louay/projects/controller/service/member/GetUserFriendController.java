@@ -8,4 +8,6 @@ public interface GetUserFriendController {
     Map<Long, UserFriend> getMyFriend(UserFriend userFriend);
 
     boolean isMyFriend(UserFriend userFriend);
+
+    Map<Long, UserFriend> getUserFriendMemberAndInfoByUsername(UserFriend userFriend);
 }

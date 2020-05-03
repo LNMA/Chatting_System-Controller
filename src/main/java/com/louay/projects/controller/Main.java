@@ -1,19 +1,8 @@
 package com.louay.projects.controller;
 
 
-import com.louay.projects.controller.service.message.AddMessageUserController;
-import com.louay.projects.controller.service.message.impl.GetMessageContentControllerImpl;
-import com.louay.projects.model.chains.accounts.Client;
-import com.louay.projects.model.chains.accounts.Users;
-import com.louay.projects.model.chains.accounts.constant.UserGender;
-import com.louay.projects.model.chains.accounts.constant.UserType;
-import com.louay.projects.model.chains.communications.account.AccountMessage;
-import com.louay.projects.model.chains.member.account.FriendRequest;
-import com.louay.projects.model.chains.member.account.UserFriend;
-import com.louay.projects.model.dao.DeleteUserDAO;
-import com.louay.projects.model.dao.SelectGroupDAO;
-import com.louay.projects.model.dao.SelectUsersDAO;
-import com.louay.projects.model.util.date.NowDate;
+import com.louay.projects.model.chains.member.group.GroupMembers;
+import com.louay.projects.model.dao.DeleteGroupDAO;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -24,45 +13,13 @@ public class Main {
         ac.scan("com.louay.projects.model","com.louay.projects.controller");
         ac.refresh();
 
-        Client user = ac.getBean(Client.class);
-        user.setUsername("louay");
-        user.setPassword("12345678");
-        user.setAccountPermission(UserType.CLIENT.getType());
-        user.setDateCreate(NowDate.getNowTimestamp());
+        GroupMembers invite = ac.getBean(GroupMembers.class);
+        invite.getGroup().setIdGroup("group1");
+        invite.getFriendMember().setUsername("louay1");
 
-        user.setFirstName("louay");
-        user.setLastName("amr");
-        user.setBirthday(java.sql.Date.valueOf("1994-10-08"));
-        user.setAge(user.getAgeFromBirthday());
-        user.setGender(UserGender.MALE.getGender());
-        user.setTelephone("00962");
-        user.setEmail("louay@projects");
-        user.setCountry("jordan");
-        user.setState("az");
-        user.setAddress("qatar street");
 
-        UserFriend friend = ac.getBean(UserFriend.class);
-        Users users = friend.getUser();
-        Users friendMember = friend.getFriendMember();
-        users.setUsername("louay");
-        friendMember.setUsername("louay1");
-        friend.setFriendMemberSince(NowDate.getNowTimestamp());
-
-        AccountMessage accountMessage = ac.getBean(AccountMessage.class);
-        Users sourceUser = accountMessage.getSourceUser();
-        sourceUser.setUsername("louay");
-        Users targetUser = accountMessage.getTargetUser();
-        targetUser.setUsername("louay1");
-        accountMessage.setMessageStringBuilder(new StringBuilder("welcome"));
-        accountMessage.setSeen(false);
-        accountMessage.setSentDate(NowDate.getNowTimestamp());
-
-        FriendRequest friendRequest = ac.getBean(FriendRequest.class);
-        friendRequest.getSourceAccount().setUsername("louay2");
-        friendRequest.getTargetAccount().setUsername("louay");
-
-        DeleteUserDAO selectUsersDAO = (DeleteUserDAO) ac.getBean("usersDAO");
-        selectUsersDAO.deleteFriendRequestBySenderAndReceiver(friendRequest);
+        DeleteGroupDAO selectUsersDAO = (DeleteGroupDAO) ac.getBean("groupDAO");
+        selectUsersDAO.deleteGroupMemberByIdGroupAndUsername(invite);
 
     }
 }
